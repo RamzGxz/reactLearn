@@ -1,4 +1,6 @@
 /* eslint-disable react/prop-types */
+import { useRef } from "react";
+
 const FormEdit = ({
   showFormEdit,
   setShowFormEdit,
@@ -8,7 +10,12 @@ const FormEdit = ({
   setTitle,
   desc,
   setDesc,
+  updateData
 }) => {
+  
+  console.log(`title : ${title}`);
+  console.log(`image : ${image}`);
+  console.log(`desc : ${desc}`);
   return (
     <div
       className={`${
@@ -19,7 +26,7 @@ const FormEdit = ({
         <h1 className="text-center text-xl text-white mb-10 font-bold">
           Ubah product
         </h1>
-        <form className="max-w-lg  mx-auto">
+        <form onSubmit={updateData} className="max-w-lg  mx-auto">
           <div className="mb-5">
             <label
               htmlFor="email"
@@ -49,6 +56,8 @@ const FormEdit = ({
               id="text"
               className="p-5 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg w-full"
               placeholder="link img"
+              value={image}
+              onChange={(e)=>setImage(e.target.value)}
               required
             />
           </div>
@@ -63,6 +72,9 @@ const FormEdit = ({
               type="text"
               id="description"
               className="p-5 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg w-full"
+              placeholder="text"
+              value={desc}
+              onChange={(e)=>setDesc(e.target.value)}
               required
             />
           </div>

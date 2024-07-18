@@ -2,16 +2,33 @@ import axios from "axios";
 import { useState, useEffect } from "react";
 import CardProduct from "../components/CardProduct";
 import FormEdit from "../components/FormEdit";
+import Navbar from "../components/Navbar";
 
 const Product = () => {
-  const [count, setCount] = useState(0);
   const [nama, setNama] = useState("tidak ada");
   const [showFormEdit, setShowFormEdit] = useState(false);
+  const [productId, setProductId] = useState('');
   const [image, setImage] = useState("");
   const [title, setTitle] = useState("");
   const [desc, setDesc] = useState("");
-
   const [product, setProduct] = useState([]);
+
+  const updateData = async (e) => {
+    e.preventDefault();
+    
+    const res = await axios.put(
+      `https://backend-pembelajaran.vercel.app/api/product/${productId}`,
+      {
+        title : title,
+        imgURL : image,
+        description : desc
+      }
+    );
+    console.log(res);
+    alert('update success');
+    window.location.reload();
+    
+  }
 
   useEffect(() => {
     const getProduct = async () => {
@@ -26,6 +43,7 @@ const Product = () => {
 
   return (
     <div className="p-5 relative">
+      <Navbar/>
       <FormEdit
         showFormEdit={showFormEdit}
         setShowFormEdit={setShowFormEdit}
@@ -35,6 +53,7 @@ const Product = () => {
         setTitle={setTitle}
         desc={desc}
         setDesc={setDesc}
+        updateData={updateData}
       />
       <h1>ini halaman product</h1>
       <p className="text-red-500">jumlah {nama}</p>
@@ -59,6 +78,7 @@ const Product = () => {
               setImage={setImage}
               setTitle={setTitle}
               setDesc={setDesc}
+              setProductId={setProductId}
             />
           );
         })}

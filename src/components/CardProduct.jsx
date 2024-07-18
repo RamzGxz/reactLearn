@@ -8,6 +8,7 @@ const CardProduct = ({
   setImage,
   setTitle,
   setDesc,
+  setProductId,
 }) => {
   const hapusProduct = async (id) => {
     alert(id);
@@ -20,6 +21,7 @@ const CardProduct = ({
   };
 
   const editBtn = () => {
+    setProductId(data._id);
     setImage(data.imgURL);
     setTitle(data.title);
     setDesc(data.description);

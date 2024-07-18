@@ -2,17 +2,20 @@ import axios from "axios";
 import { useState } from "react";
 import { useRef } from "react";
 import { useNavigate } from "react-router-dom";
+import Navbar from "../components/Navbar";
 
 const AddProduct = () => {
   const [title, setTitle] = useState("");
   const [imgURL, setImgURL] = useState("");
   const [description, setDescription] = useState("");
+  const [error,setError] = useState([]) 
 
   const redirect = useNavigate();
 
   const form = useRef();
 
   const tambahData = async (e) => {
+  try{
     e.preventDefault();
 
     const res = await axios.post(
@@ -27,14 +30,23 @@ const AddProduct = () => {
     form.current.reset();
     redirect("/product");
 
-    console.log(res);
 
-    // console.log(title, imgURL, description);
+    console.log(res);
+  }catch(err){
+    setError(err.response.data.errors)
+    alert("terjadi error")
+  }
+
+
   };
 
-  return (
-    <div className="pt-20">
-      <form ref={form} className="max-w-lg  mx-auto" onSubmit={tambahData}>
+  console.log(error.join("\n"))
+
+  return (  
+    <div className="">
+      <Navbar />
+      <h1 className="text-center whitespace-pre-line" >{error.join("\n")}</h1>
+      <form ref={form} className="max-w-lg  mx-auto mt-20" onSubmit={tambahData}>
         <div className="mb-5">
           <label
             htmlFor="email"
@@ -48,7 +60,6 @@ const AddProduct = () => {
             className="p-5 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg w-full"
             placeholder="title"
             onChange={(e) => setTitle(e.target.value)}
-            required
           />
         </div>
         <div className="mb-5">
@@ -64,7 +75,7 @@ const AddProduct = () => {
             className="p-5 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg w-full"
             placeholder="link img"
             onChange={(e) => setImgURL(e.target.value)}
-            required
+    
           />
         </div>
         <div className="mb-5">
@@ -79,7 +90,7 @@ const AddProduct = () => {
             id="description"
             className="p-5 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg w-full"
             onChange={(e) => setDescription(e.target.value)}
-            required
+    
           />
         </div>
 

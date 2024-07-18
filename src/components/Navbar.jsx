@@ -18,12 +18,12 @@ const Navbar = () => {
         <a href="" className="text-xl" onClick={() => navigate("/halaman-2")}>
           Halaman 2
         </a>
-        <a href="" className="text-xl">
-          Galery
-        </a>
-        <a href="" className="text-xl">
-          Team
-        </a>
+        <Link to='/product' className="text-xl">
+          Product
+        </Link>
+        <Link to='/add-product' className="text-xl">
+          Add Product
+        </Link>
         <a href="" className="text-xl">
           Contact
         </a>
@@ -39,7 +39,7 @@ const Navbar = () => {
           <g id="SVGRepo_bgCarrier" strokeWidth="0"></g>
           <g
             id="SVGRepo_tracerCarrier"
-            stroke-linecap="round"
+            strokeLinecap="round"
             strokeLinejoin="round"
           ></g>
           <g id="SVGRepo_iconCarrier">
